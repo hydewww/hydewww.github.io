@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>0014. 最长公共前缀 | Leetcode in Go</title>
+    <meta name="description" content="Leetcode in Golang | author: hydewww">
+    <link rel="manifest" href="/algorithm/manifest.json">
+  <link rel="icon" href="/algorithm/logo.png">
+  <link rel="apple-touch-icon" href="/algorithm/logo.png">
+    
+    <link rel="preload" href="/algorithm/assets/css/0.styles.35f7a6bc.css" as="style"><link rel="preload" href="/algorithm/assets/js/app.50a4bdf4.js" as="script"><link rel="preload" href="/algorithm/assets/js/7.fe5981be.js" as="script"><link rel="prefetch" href="/algorithm/assets/js/10.9af26ff3.js"><link rel="prefetch" href="/algorithm/assets/js/11.8e6febb0.js"><link rel="prefetch" href="/algorithm/assets/js/12.4325d8d6.js"><link rel="prefetch" href="/algorithm/assets/js/13.70b5613b.js"><link rel="prefetch" href="/algorithm/assets/js/14.a7b722e0.js"><link rel="prefetch" href="/algorithm/assets/js/15.a371085e.js"><link rel="prefetch" href="/algorithm/assets/js/16.e4a66300.js"><link rel="prefetch" href="/algorithm/assets/js/17.8bdc48e8.js"><link rel="prefetch" href="/algorithm/assets/js/18.e485f7e0.js"><link rel="prefetch" href="/algorithm/assets/js/19.e7e26aa7.js"><link rel="prefetch" href="/algorithm/assets/js/2.7cb6fb06.js"><link rel="prefetch" href="/algorithm/assets/js/20.5a64b2fe.js"><link rel="prefetch" href="/algorithm/assets/js/21.7630f877.js"><link rel="prefetch" href="/algorithm/assets/js/3.7c2f845e.js"><link rel="prefetch" href="/algorithm/assets/js/4.74c0294f.js"><link rel="prefetch" href="/algorithm/assets/js/5.c42ac2f7.js"><link rel="prefetch" href="/algorithm/assets/js/6.dc72fab8.js"><link rel="prefetch" href="/algorithm/assets/js/8.e73c2ccb.js"><link rel="prefetch" href="/algorithm/assets/js/9.2825d4f6.js">
+    <link rel="stylesheet" href="/algorithm/assets/css/0.styles.35f7a6bc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/algorithm/" class="home-link router-link-active"><!----> <span class="site-name">Leetcode in Go</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://www.hydewww.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://www.hydewww.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/algorithm/" class="sidebar-link">Leetcode in Golang</a></li><li><a href="/algorithm/0001.html" class="sidebar-link">0001. 两数之和</a></li><li><a href="/algorithm/0007.html" class="sidebar-link">0007. 整数反转</a></li><li><a href="/algorithm/0009.html" class="sidebar-link">0009. 回文数</a></li><li><a href="/algorithm/0013.html" class="sidebar-link">0013. 罗马数字转整数</a></li><li><a href="/algorithm/0014.html" class="active sidebar-link">0014. 最长公共前缀</a></li><li><a href="/algorithm/0020.html" class="sidebar-link">0020. 有效的括号</a></li><li><a href="/algorithm/0021.html" class="sidebar-link">0021. 合并两个有序链表</a></li><li><a href="/algorithm/0026.html" class="sidebar-link">0026. 删除排序数组中的重复项</a></li><li><a href="/algorithm/0027.html" class="sidebar-link">0027. 移除元素</a></li><li><a href="/algorithm/0028.html" class="sidebar-link">0028. 实现strStr()</a></li><li><a href="/algorithm/0035.html" class="sidebar-link">0035. 搜索插入位置</a></li><li><a href="/algorithm/0038.html" class="sidebar-link">0038. 报数</a></li><li><a href="/algorithm/0058.html" class="sidebar-link">0058. 最后一个单词的长度</a></li><li><a href="/algorithm/0066.html" class="sidebar-link">0066. 加一</a></li><li><a href="/algorithm/0067.html" class="sidebar-link">0067. 二进制求和</a></li><li><a href="/algorithm/0069.html" class="sidebar-link">0069. x 的平方根</a></li><li><a href="/algorithm/0083.html" class="sidebar-link">0083. 删除排序链表中的重复元素</a></li></ul> </div> <div class="page"> <div class="content"><h1 id="_0014-最长公共前缀"><a href="#_0014-最长公共前缀" aria-hidden="true" class="header-anchor">#</a> <a href="https://leetcode-cn.com/problems/longest-common-prefix/" target="_blank" rel="noopener noreferrer">0014. 最长公共前缀<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h1> <p>编写一个函数来查找字符串数组中的最长公共前缀。</p> <p>如果不存在公共前缀，返回空字符串 <code>&quot;&quot;</code>。</p> <p><strong>示例 1:</strong></p> <div class="language- extra-class"><pre class="language-text"><code>输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]
+输出: &quot;fl&quot;
+</code></pre></div><p><strong>示例 2:</strong></p> <div class="language- extra-class"><pre class="language-text"><code>输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]
+输出: &quot;&quot;
+解释: 输入不存在公共前缀。
+</code></pre></div><p><strong>说明:</strong></p> <p>所有输入只包含小写字母 <code>a-z</code> 。</p> <h2 id><a href="#" aria-hidden="true" class="header-anchor">#</a> &gt;</h2> <p>先确认所有字符串的最短长度，再逐字符比较。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">func</span> <span class="token function">longestCommonPrefix</span><span class="token punctuation">(</span>strs <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	num <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>strs<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> num <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;&quot;</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> num <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> strs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// 求字符串最短长度</span>
+	str0 <span class="token operator">:=</span> strs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+	minlen <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>str0<span class="token punctuation">)</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> num<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> tmp <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>strs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> minlen <span class="token operator">&gt;</span> tmp <span class="token punctuation">{</span>
+			minlen <span class="token operator">=</span> tmp
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// 求字符串相同长度</span>
+	result <span class="token operator">:=</span> <span class="token number">0</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> minlen<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		j <span class="token operator">:=</span> <span class="token number">1</span>
+		<span class="token keyword">for</span> <span class="token punctuation">;</span> j <span class="token operator">&lt;</span> num<span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> str0<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> strs<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+				<span class="token keyword">break</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">if</span> j <span class="token operator">!=</span> num <span class="token punctuation">{</span>
+			<span class="token keyword">break</span>
+		<span class="token punctuation">}</span>
+		result <span class="token operator">+=</span> <span class="token number">1</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> str0<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span>result<span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/algorithm/0013.html" class="prev">
+          0013. 罗马数字转整数
+        </a></span> <span class="next"><a href="/algorithm/0020.html">
+          0020. 有效的括号
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/algorithm/assets/js/app.50a4bdf4.js" defer></script><script src="/algorithm/assets/js/7.fe5981be.js" defer></script>
+  </body>
+</html>

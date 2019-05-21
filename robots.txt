@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Disallow: /categories/
+Disallow: /tags/
+
+Sitemap: http://www.hydewww.cn/sitemap.xml

