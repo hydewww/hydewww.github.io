@@ -9,7 +9,7 @@
   <link rel="icon" href="/algorithm/logo.png">
   <link rel="apple-touch-icon" href="/algorithm/logo.png">
     
-    <link rel="preload" href="/algorithm/assets/css/0.styles.35f7a6bc.css" as="style"><link rel="preload" href="/algorithm/assets/js/app.50a4bdf4.js" as="script"><link rel="preload" href="/algorithm/assets/js/3.7c2f845e.js" as="script"><link rel="prefetch" href="/algorithm/assets/js/10.9af26ff3.js"><link rel="prefetch" href="/algorithm/assets/js/11.8e6febb0.js"><link rel="prefetch" href="/algorithm/assets/js/12.4325d8d6.js"><link rel="prefetch" href="/algorithm/assets/js/13.70b5613b.js"><link rel="prefetch" href="/algorithm/assets/js/14.a7b722e0.js"><link rel="prefetch" href="/algorithm/assets/js/15.a371085e.js"><link rel="prefetch" href="/algorithm/assets/js/16.e4a66300.js"><link rel="prefetch" href="/algorithm/assets/js/17.8bdc48e8.js"><link rel="prefetch" href="/algorithm/assets/js/18.e485f7e0.js"><link rel="prefetch" href="/algorithm/assets/js/19.e7e26aa7.js"><link rel="prefetch" href="/algorithm/assets/js/2.7cb6fb06.js"><link rel="prefetch" href="/algorithm/assets/js/20.5a64b2fe.js"><link rel="prefetch" href="/algorithm/assets/js/21.7630f877.js"><link rel="prefetch" href="/algorithm/assets/js/4.74c0294f.js"><link rel="prefetch" href="/algorithm/assets/js/5.c42ac2f7.js"><link rel="prefetch" href="/algorithm/assets/js/6.dc72fab8.js"><link rel="prefetch" href="/algorithm/assets/js/7.fe5981be.js"><link rel="prefetch" href="/algorithm/assets/js/8.e73c2ccb.js"><link rel="prefetch" href="/algorithm/assets/js/9.2825d4f6.js">
+    <link rel="preload" href="/algorithm/assets/css/0.styles.35f7a6bc.css" as="style"><link rel="preload" href="/algorithm/assets/js/app.87b3a591.js" as="script"><link rel="preload" href="/algorithm/assets/js/3.ba76d83b.js" as="script"><link rel="prefetch" href="/algorithm/assets/js/10.9af26ff3.js"><link rel="prefetch" href="/algorithm/assets/js/11.8e6febb0.js"><link rel="prefetch" href="/algorithm/assets/js/12.4325d8d6.js"><link rel="prefetch" href="/algorithm/assets/js/13.70b5613b.js"><link rel="prefetch" href="/algorithm/assets/js/14.a7b722e0.js"><link rel="prefetch" href="/algorithm/assets/js/15.a371085e.js"><link rel="prefetch" href="/algorithm/assets/js/16.e4a66300.js"><link rel="prefetch" href="/algorithm/assets/js/17.8bdc48e8.js"><link rel="prefetch" href="/algorithm/assets/js/18.e485f7e0.js"><link rel="prefetch" href="/algorithm/assets/js/19.e7e26aa7.js"><link rel="prefetch" href="/algorithm/assets/js/2.7cb6fb06.js"><link rel="prefetch" href="/algorithm/assets/js/20.5a64b2fe.js"><link rel="prefetch" href="/algorithm/assets/js/21.7630f877.js"><link rel="prefetch" href="/algorithm/assets/js/4.74c0294f.js"><link rel="prefetch" href="/algorithm/assets/js/5.c42ac2f7.js"><link rel="prefetch" href="/algorithm/assets/js/6.dc72fab8.js"><link rel="prefetch" href="/algorithm/assets/js/7.fe5981be.js"><link rel="prefetch" href="/algorithm/assets/js/8.e73c2ccb.js"><link rel="prefetch" href="/algorithm/assets/js/9.2825d4f6.js">
     <link rel="stylesheet" href="/algorithm/assets/css/0.styles.35f7a6bc.css">
   </head>
   <body>
@@ -31,6 +31,18 @@
 	<span class="token punctuation">}</span>
 	<span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
+</code></pre></div><h2 id="-2"><a href="#-2" aria-hidden="true" class="header-anchor">#</a> &gt;</h2> <div class="tip custom-block"><p class="custom-block-title">Hashmap</p> <p><code>hm := make(map[int]string)</code> 创建hashmap key为int value为string</p> <p><code>hm[1] = &quot;a&quot;</code>  插入值</p> <p><code>if str, ok := hm[1]; ok {}</code> 取值 当不存在时返回零值 用ok判断是否存在</p></div> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">func</span> <span class="token function">twoSum</span><span class="token punctuation">(</span>nums <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> target <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token punctuation">{</span>
+	nums_hash <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span>
+	<span class="token keyword">for</span> idx<span class="token punctuation">,</span> num <span class="token operator">:=</span> <span class="token keyword">range</span> nums <span class="token punctuation">{</span>
+		nums_hash<span class="token punctuation">[</span>num<span class="token punctuation">]</span> <span class="token operator">=</span> idx
+	<span class="token punctuation">}</span>
+	<span class="token keyword">for</span> idx<span class="token punctuation">,</span> num <span class="token operator">:=</span> <span class="token keyword">range</span> nums <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> idx2<span class="token punctuation">,</span> ok <span class="token operator">:=</span> nums_hash<span class="token punctuation">[</span>target<span class="token operator">-</span>num<span class="token punctuation">]</span><span class="token punctuation">;</span> ok <span class="token operator">&amp;&amp;</span> idx <span class="token operator">!=</span> idx2 <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span>idx<span class="token punctuation">,</span> idx2<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre></div></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
         ←
         <a href="/algorithm/" class="prev router-link-active">
@@ -40,6 +52,6 @@
         </a>
         →
       </span></p></div> </div> <!----></div></div>
-    <script src="/algorithm/assets/js/app.50a4bdf4.js" defer></script><script src="/algorithm/assets/js/3.7c2f845e.js" defer></script>
+    <script src="/algorithm/assets/js/app.87b3a591.js" defer></script><script src="/algorithm/assets/js/3.ba76d83b.js" defer></script>
   </body>
 </html>

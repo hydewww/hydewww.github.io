@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.hydewww.cn/bookmark.html</loc>
+    <loc>https://www.hydewww.cn/uploads/bookmark.html</loc>
     
     <lastmod>2019-05-21T13:50:08.000Z</lastmod>
     
@@ -23,20 +23,6 @@
   </url>
   
   <url>
-    <loc>https://www.hydewww.cn/Hexo-NexT/</loc>
-    
-    <lastmod>2019-05-20T16:00:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.hydewww.cn/csiec/</loc>
-    
-    <lastmod>2019-05-20T16:00:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.hydewww.cn/ubuntu18_init/</loc>
     
     <lastmod>2019-05-20T16:00:00.000Z</lastmod>
@@ -45,6 +31,20 @@
   
   <url>
     <loc>https://www.hydewww.cn/sha256-go/</loc>
+    
+    <lastmod>2019-05-20T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.hydewww.cn/Hexo-NexT/</loc>
+    
+    <lastmod>2019-05-20T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.hydewww.cn/csiec/</loc>
     
     <lastmod>2019-05-20T16:00:00.000Z</lastmod>
     

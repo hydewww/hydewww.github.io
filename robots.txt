@@ -3,5 +3,6 @@ Allow: /
 Allow: /archives/
 Disallow: /categories/
 Disallow: /tags/
+Disallow: /uploads/
 
 Sitemap: http://www.hydewww.cn/sitemap.xml

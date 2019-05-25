@@ -11,8 +11,10 @@
 
 
 
+  
 
-<html class="theme-next mist" lang="zh-CN">
+
+<html class="theme-next mist use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -69,7 +71,7 @@
     fastclick: false,
     lazyload: false,
     tabs: true,
-    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -365,7 +367,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hydewww">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -483,7 +485,7 @@
 <h1 id="Software"><a href="#Software" class="headerlink" title="Software"></a>Software</h1><h2 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh my zsh"></a><a href="https://ohmyz.sh/" target="_blank" rel="noopener">oh my zsh</a></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y zsh</span><br><span class="line">chsh -s /usr/bin/zsh</span><br><span class="line">sh -c <span class="string">"<span class="variable">$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure>
 <h2 id="V2Ray"><a href="#V2Ray" class="headerlink" title="V2Ray"></a><a href="https://v2ray.com/" target="_blank" rel="noopener">V2Ray</a></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -L -s https://install.direct/go.sh)</span><br></pre></td></tr></table></figure>
 <h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><p>frp : <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a></p>
-<h1 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h1> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">"<span class="variable">$(wget https://www.hydewww.cn/ubuntu.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure>
+<h1 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h1> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">"<span class="variable">$(wget https://www.hydewww.cn/uploads/ubuntu.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ $(id -u) != <span class="string">"0"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" Use sudo!"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line"></span><br><span class="line">sudo bash -c <span class="string">'echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse</span></span><br><span class="line"><span class="string">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span></span><br><span class="line"><span class="string">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span></span><br><span class="line"><span class="string">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse" &gt; /etc/apt/sources.list'</span></span><br><span class="line"></span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y zsh wget curl git</span><br><span class="line"></span><br><span class="line">pip install -U pip</span><br><span class="line">pip config <span class="built_in">set</span> global.index-url </span><br><span class="line"></span><br><span class="line">wget --no-check-certificate <span class="string">"https://github.com/teddysun/across/raw/master/bbr.sh"</span></span><br><span class="line">chmod +x bbr.sh</span><br><span class="line">sudo ./bbr.sh</span><br><span class="line"></span><br><span class="line">chsh -s /usr/bin/zsh</span><br><span class="line">sh -c <span class="string">"<span class="variable">$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure>
 
       
@@ -494,6 +496,12 @@
     
     
     
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/uploads/qrcode.jpg" alt="hydewww wechat" style="width: 200px; max-width: 100%;">
+  <div>有没有兴趣关注一下公众号鸭</div>
+</div>
 
     
 
@@ -616,6 +624,8 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="hydewww">
             
               <p class="site-author-name" itemprop="name">hydewww</p>
               <div class="site-description motion-element" itemprop="description"></div>
@@ -767,6 +777,17 @@
                     
                   
                   <a href="https://github.com/hydewww" title="GitHub &rarr; https://github.com/hydewww" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.hydewww.cn/algorithm" title="Leetcode &rarr; https://www.hydewww.cn/algorithm"><i class="fa fa-fw fa-code"></i>Leetcode</a>
                 </span>
               
                 <span class="links-of-author-item">
