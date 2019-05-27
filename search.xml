@@ -40,17 +40,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Nginx配置]]></title>
-    <url>%2Fnginx_conf%2F</url>
-    <content type="text"><![CDATA[这学期用 Nginx 搭了很多 web 服务，整理下nginx的一些配置方法 _(:з」∠)_ 默认nginx默认路径/etc/nginx/ sites-available / sites-enabledavailable文件夹存放已设置好的配置文件，enabled则存放启用的配置文件，可通过link命令建立软链接启用（类似快捷方式）。 1ln -s sites-available/a sites-enabled/a 配置12345678910server &#123; listen 80; # 监听ipv4 listen [::]:80; # 监听ipv6 server_name ...; # 域名 location / # 即域名根目录，若是/web则是.com/web/ &#123; &#125;&#125; 通过设置不同的server_name，即可实现一台主机配置多个站点，且不用通过端口访问。 配置可分为多个文件，也可以放在一个文件里。配置好后，执行如下命令进行重启： 1systemctl restart nginx 直接转发12345678server &#123; listen 80; server_name ...; location / &#123; proxy_pass http://127.0.0.1:xxxx &#125;&#125; PHP12345678910111213141516171819server &#123; listen 80; server_name ...; root ...; # 网站根目录 location / &#123; # 默认主页 index index.php index.html index.htm; &#125; # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000 location ~ \.php$ &#123; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include fastcgi_params; &#125; &#125; FLASK1234567891011server &#123; listen 80; server_name ...; location / &#123; include uwsgi_params; uwsgi_pass 127.0.0.1:xxxx; uwsgi_param UWSGI_CHDIR ...; # 网站根目录 uwsgi_param UWSGI_SCRIPT manage:app; # 文件:应用名 &#125;&#125; 禁止通过ip访问官方文档中推荐设置为 123456server &#123; listen 80 default_server; # 默认server listen [::]:80 default_server; server_name _; return 444;&#125; 若不增加server_name _，则会影响其它server的域名访问功能。]]></content>
-      <categories>
-        <category>Service</category>
-      </categories>
-      <tags>
-        <tag>Nginx</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[flask+uwsgi+nginx+supervisor]]></title>
     <url>%2Fflask_deploy%2F</url>
     <content type="text"><![CDATA[flask自带的服务器不够稳定，作为生产服还是要用uwsgi+nginx+supervisor。 环境12apt install -y supervisor nginxpip install requests flask flask-bootstrap flask-script flask-sqlalchemy flask-wtf flask-login uwsgi uwsgi12345678# test_uwsgi.ini[test]socket = 127.0.0.1:xxxxchdir = ... # 网站根目录wsgi-file = manage.pycallable = appprocesses = 2enable-threads = true nginx123456789101112# test_nginx.confserver &#123; listen 80; server_name ...; location / &#123; include uwsgi_params; uwsgi_pass 127.0.0.1:xxxx; # 与uwsgi相同端口 uwsgi_param UWSGI_CHDIR ...; # 网站根目录 uwsgi_param UWSGI_SCRIPT manage:app; # 与uwsgi相同 文件:应用 &#125;&#125; supervisor12345678# test_super.conf[program:xss]command=/usr/local/bin/uwsgi .../test_uwsgi.ini # uswgi文件路径directory=... # 网站根目录user=root # 运行用户autostart=trueautorestart=truestdout_logfile=.../test.log]]></content>
@@ -61,6 +50,17 @@
         <tag>flask</tag>
         <tag>uwsgi</tag>
         <tag>supervisor</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Nginx配置]]></title>
+    <url>%2Fnginx_conf%2F</url>
+    <content type="text"><![CDATA[这学期用 Nginx 搭了很多 web 服务，整理下nginx的一些配置方法 _(:з」∠)_ 默认nginx默认路径/etc/nginx/ sites-available / sites-enabledavailable文件夹存放已设置好的配置文件，enabled则存放启用的配置文件，可通过link命令建立软链接启用（类似快捷方式）。 1ln -s sites-available/a sites-enabled/a 配置12345678910server &#123; listen 80; # 监听ipv4 listen [::]:80; # 监听ipv6 server_name ...; # 域名 location / # 即域名根目录，若是/web则是.com/web/ &#123; &#125;&#125; 通过设置不同的server_name，即可实现一台主机配置多个站点，且不用通过端口访问。 配置可分为多个文件，也可以放在一个文件里。配置好后，执行如下命令进行重启： 1systemctl restart nginx 直接转发12345678server &#123; listen 80; server_name ...; location / &#123; proxy_pass http://127.0.0.1:xxxx &#125;&#125; PHP12345678910111213141516171819server &#123; listen 80; server_name ...; root ...; # 网站根目录 location / &#123; # 默认主页 index index.php index.html index.htm; &#125; # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000 location ~ \.php$ &#123; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include fastcgi_params; &#125; &#125; FLASK1234567891011server &#123; listen 80; server_name ...; location / &#123; include uwsgi_params; uwsgi_pass 127.0.0.1:xxxx; uwsgi_param UWSGI_CHDIR ...; # 网站根目录 uwsgi_param UWSGI_SCRIPT manage:app; # 文件:应用名 &#125;&#125; 禁止通过ip访问官方文档中推荐设置为 123456server &#123; listen 80 default_server; # 默认server listen [::]:80 default_server; server_name _; return 444;&#125; 若不增加server_name _，则会影响其它server的域名访问功能。]]></content>
+      <categories>
+        <category>Service</category>
+      </categories>
+      <tags>
+        <tag>Nginx</tag>
       </tags>
   </entry>
   <entry>
