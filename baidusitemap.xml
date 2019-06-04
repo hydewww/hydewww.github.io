@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.hydewww.cn/sha256-go/</loc>
+    <loc>https://www.hydewww.cn/Hexo-NexT/</loc>
     <lastmod>2019-05-20</lastmod>
   </url>  <url>
-    <loc>https://www.hydewww.cn/csiec/</loc>
+    <loc>https://www.hydewww.cn/sha256-go/</loc>
     <lastmod>2019-05-20</lastmod>
   </url>  <url>
     <loc>https://www.hydewww.cn/ubuntu18_init/</loc>
     <lastmod>2019-05-20</lastmod>
   </url>  <url>
-    <loc>https://www.hydewww.cn/Hexo-NexT/</loc>
+    <loc>https://www.hydewww.cn/csiec/</loc>
     <lastmod>2019-05-20</lastmod>
   </url>  <url>
     <loc>https://www.hydewww.cn/nginx_conf/</loc>
